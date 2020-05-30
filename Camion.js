@@ -5,18 +5,17 @@ crossorigin = "anonymous" >
 
     $(document).ready(function () {
         actual='#principal' ;
-        $('#index').hide();
         $('#empresa').hide();
         $('#camion').hide();
         $('#ruta').hide();
         $('#servicio').hide();
         $('#contenedores').hide();
         $('#crear_camion').hide();
-//Funciona Jquery
-        $(function () {
+        $('#crear_empresa').hide();
+        $('#crear_ruta').hide();
 
-            console.log('jQuery is working');
-        });
+//Funciona Jquery
+
        // $("#camiones").find(tr)
         $('#a_index').click(function () {
                 $(actual).hide();
@@ -80,6 +79,20 @@ crossorigin = "anonymous" >
                 $(actual).show();
             }
         );
+        $('#Añadir_e').click(function () {
+                $(actual).hide();
+                actual='#crear_empresa';
+                $(actual).show();
+            }
+        );
+        $('#Añadir_r').click(function () {
+                $(actual).hide();
+                actual='#crear_ruta';
+                $(actual).show();
+            }
+        );
+
+
         Mostrar_eliminar();
         //Añadir Camion
         $('#Camion-form').submit(function (e) {
@@ -87,19 +100,16 @@ crossorigin = "anonymous" >
                 Marca: $('#Marca').val(),
                 Matricula_camion: $('#Matricula_camion').val(),
                 Modelo: $('#Modelo').val(),
-                Tipos_contenedor: $('#Tipos_contenedor').val(),
+                Tipo_contenedor: $('#Tipo_contenedor').val(),
                 Latitud: $('#Latitud').val(),
                 Longitud: $('#Longitud').val()
 
             };
-            console.log(Tipos_contenedor);
             $.post('Crear_nuevo_camion.php', postCamion, function (response) {
                 $("#info").html(JSON.parse(response));
                 $('#card-body').trigger('reset');
                 Mostrar_eliminar();
-
             });
-            console.log(postCamion);
             e.preventDefault();
             $('#Camion-form').trigger('reset');
         });
@@ -122,7 +132,7 @@ crossorigin = "anonymous" >
 
                 template += ` 
                 <tr id="${Camion.Id_camion}">
-                        <td data-id="${Camion.Id_camion}"  data-column="Tipo_contenedor"  class="update">${Camion.Tipo_contenedor}</td>
+                        <td data-id="${Camion.Id_camion}"  data-column="Tipo_contenedor"   class="update">${Camion.Tipo_contenedor}</td>
                         <td data-id="${Camion.Id_camion}"  data-column="Matricula_camion"  class="update">${Camion.Matricula_camion}</td>
                         <td data-id="${Camion.Id_camion}"  data-column="Marca"             class="update">${Camion.Marca}</td>
                         <td data-id="${Camion.Id_camion}"  data-column="Modelo"            class="update">${Camion.Modelo}</td>
@@ -151,7 +161,7 @@ crossorigin = "anonymous" >
                     $('#Modelo_camion').val(data.Modelo);
                     $('#Longitud_camion').val(data.Longitud);
                     $('#Matricula').val(data.Matricula_camion);
-                    $('#id_camion').val(data.id);
+                    // $('#id_camion').val(data.id);
                     $('#Latitud_camion').val(data.Latitud);
                     $('#insert').val("Update");
                 }
@@ -159,8 +169,7 @@ crossorigin = "anonymous" >
         })
 
             $('#insert_camion').on("submit", function(event){
-                var mostrar =$('#Tipo_contenedor_id').val();
-                console.log(mostrar);
+
             event.preventDefault();
 
             if($('#Marca_camion').val() == "")
@@ -183,7 +192,7 @@ crossorigin = "anonymous" >
             {
                 alert("Matrícula is required");
             }
-            else if ($('#Tipo_contenedor_id').val() == ''){
+            else if ($('#Tipo_contenedor_id').val() === '0'){
                 alert("Por favor inserte el nuevo contenedor");
             }
             else

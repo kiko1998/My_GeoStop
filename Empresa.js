@@ -6,34 +6,36 @@ crossorigin = "anonymous" >
     $(document).ready(function () {
 
 //Funciona Jquery
-        $(function () {
 
-            console.log('jQuery is working');
-        });
-        Mostrar_eliminar();
+        Mostrar_empresa();
         //Añadir empresa
         $('#Empresa-form').submit(function (e) {
             const postEmpresa = {
-                Localidad: $('#Localidad').val(),
-                Tipo_procesamiento: $('#Tipo_procesamiento').val(),
-                Nombre: $('#Nombre').val(),
-                Telefono: $('#Telefono').val(),
-                Latitud: $('#Latitud').val(),
-                Longitud: $('#Longitud').val()
+                Localidad: $('#Empresa_localidad').val(),
+                Tipo_contenedor: $('#Empresa_tipo_contenedor').val(),
+                Nombre: $('#Empresa_nombre').val(),
+                Telefono: $('#Empresa_telefono').val(),
+                Latitud: $('#Empresa_latitud').val(),
+                Longitud: $('#Empresa_longitud').val()
 
             };
+            console.log(postEmpresa);
+
             $.post('Crear_nueva_empresa.php', postEmpresa, function (response) {
                 $("#info").html(JSON.parse(response));
                 $('#card-body').trigger('reset');
+                Mostrar_empresa();
 
             });
             console.log(postEmpresa);
             e.preventDefault();
+            $('#Empresa-form').trigger('reset');
+
         });
 
 
 
-        function Mostrar_eliminar() {
+        function Mostrar_empresa() {
             $.ajax({
                 url: 'Mostrar_empresa.php',
                 type: 'GET',
@@ -42,18 +44,16 @@ crossorigin = "anonymous" >
                     let template = '';
                     
                     Empresas.forEach(Empresa => {
-
                         template += ` 
                 <tr>
                         <td data-id="${Empresa.id_empresa}"  data-column="Localidad"           class="update">${Empresa.Localidad}</td>
-                        <td data-id="${Empresa.id_empresa}"  data-column="Tipo_procesamiento"  class="update">${Empresa.Tipo_procesamiento}</td>
+                        <td data-id="${Empresa.id_empresa}"  data-column="Tipo_contenedor"     class="update">${Empresa.Tipo_contenedor}</td>
                         <td data-id="${Empresa.id_empresa}"  data-column="Nombre"              class="update">${Empresa.Nombre}</td>
                         <td data-id="${Empresa.id_empresa}"  data-column="Telefono"            class="update">${Empresa.Telefono}</td>
                         <td data-id="${Empresa.id_empresa}"  data-column="Latitud"             class="update">${Empresa.Latitud}</td>
                         <td data-id="${Empresa.id_empresa}"  data-column="Longitud"            class="update">${Empresa.Longitud}</td>
-                        <td><button type="editar" a href="#modal2" id="${Empresa.id_empresa}"    class="empresa button" name="editar" data-toggle="modal">Editar</button></td>
-                        <td><button type='eliminar' id="${Empresa.id_empresa}" class='empresa btn btn-danger' name='eliminar' > Eliminar</button></td>";
-               
+                        <td><button type="editar" a href="#modal_empresa" id="${Empresa.id_empresa}"  class="empresa button" name="editar" data-toggle="modal">Editar</button></td>
+                        <td><button type='eliminar' id="${Empresa.id_empresa}" class='delete_empresa btn button1'  name='eliminar' > Eliminar</button></td>";
                 </tr>`
                     });
                     $('#Empresas').html(template);
@@ -76,56 +76,72 @@ crossorigin = "anonymous" >
                 data: {id_empresa: id_empresa},
                 dataType: "json",
                 success: function (data) {
-                    $('#id').val(data.id_empresa);
-                    $('#Localidad').val(data.Localidad);
-                    $('#Tipo_procesamiento').val(data.Tipo_procesamiento);
-                    $('#Nombre').val(data.Nombre);
-                    $('#Telefono').val(data.Telefono);
-                    $('#Latitud').val(data.Latitud);
-                    $('#Longitud').val(data.Longitud);
-                    $('#id_empresa').val(data.id);
+                    $('#id_empresa').val(data.id_empresa);
+                    $('#Localidad_empresa').val(data.Localidad);
+                    $('#Tipo_cotenedor_empresa').val(data.Tipo_contenedor);
+                    $('#Nombre_empresa').val(data.Nombre);
+                    $('#Telefono_empresa').val(data.Telefono);
+                    $('#Latitud_empresa').val(data.Latitud);
+                    $('#Longitud_empresa').val(data.Longitud);
+                   // $('#id_empresa').val(data.id);
                     $('#insert').val("Update");
                 }
             });
+        })
 
-        $('#insert_form').on("submit", function(event){
+        $('#insert_empresa').on("submit", function(event){
             event.preventDefault();
-            if($('#Nombre').val() == "")
+            var tipo_empresa = $('#Tipo_contenedor_empresa').val()
+            console.log(tipo_empresa);
+
+            var localidad = $('#Localidad_empresa').val()
+            console.log(localidad);
+
+
+            if($('#Tipo_contenedor_empresa').val() == "")
             {
-                alert("Name is required");
+                alert("Inserte el contenedor");
             }
-            else if($('#Telefono').val() == '')
+            else if($('#Localidad_empresa').val() == '')
             {
-                alert("Address is required");
+                alert("Inserte la localidad");
             }
-            else if($('#Longitud').val() == '')
+            else if($('#Nombre_empresa').val() == '')
             {
-                alert("LONGITUD EMPRESA is required");
+                alert("Inserte el nombre");
             }
-            else if($('#Matricula').val() == '')
+            else if($('#Telefono_empresa').val() == '')
             {
-                alert("Age is required");
+                alert("Inserte el teléfono");
             }
+            else if($('#Latitud_empresa').val() == ''){
+                alert("Inserte la latitud ");
+            }
+            else if($('#Longitud_empresa').val() == ''){
+                alert("Inserte la longitud");
+            }
+
             else
             {
                 $.ajax({
                     url:"Guardar_empresa.php",
                     method:"POST",
-                    data:$('#insert_form').serialize(),
+                    data:$('#insert_empresa').serialize(),
                     beforeSend:function(){
                         $('#insert').val("Inserting");
                     },
-                    success:function(data){
-                        $('#insert_form')[0].reset();
-                        alert('Actualizado');
+                    success:function(response){
+                        $("#info2").html(JSON.parse(response));
+                        $('#insert_empresa')[0].reset();
                     }
                 });
+                Mostrar_empresa();
             }
         });
-        })
 
 
-        $(document).on('click', '.empresa', function () {
+
+        $(document).on('click', '.delete_empresa', function () {
             if (confirm('¿Estás seguro de que quieres eliminar esta empresa?')) {
                 let id_empresa = $(this).attr("id");
 
@@ -135,7 +151,7 @@ crossorigin = "anonymous" >
                     $("#info").html(JSON.parse(response));
 
                 })
-                Mostrar_eliminar();
+                Mostrar_empresa();
             }
         })
     });

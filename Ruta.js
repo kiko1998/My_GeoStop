@@ -10,8 +10,8 @@ crossorigin = "anonymous" >
 
             console.log('jQuery is working');
         });
-        Mostrar_eliminar();
-        //Añadir empresa
+        Mostrar_ruta();
+        //Añadir ruta
         $('#Ruta-form').submit(function (e) {
             const postRuta = {
                 Nombre_ruta: $('#Nombre_ruta').val(),
@@ -29,7 +29,7 @@ crossorigin = "anonymous" >
 
 
 
-        function Mostrar_eliminar() {
+        function Mostrar_ruta() {
             $.ajax({
                 url: 'Mostrar_ruta.php',
                 type: 'GET',
@@ -43,8 +43,8 @@ crossorigin = "anonymous" >
                 <tr>
                         <td data-id="${Ruta.Id_ruta}"  data-column="Nombre_ruta"           class="update">${Ruta.Nombre_ruta}</td>
                         <td data-id="${Ruta.Id_ruta}"  data-column="Tipo_contenendor"      class="update">${Ruta.Tipo_contenedor}</td>
-                        <td><button type="editar" a href="#modal2" id="${Ruta.Id_ruta}"    class="ruta button" name="editar" data-toggle="modal">Editar</button></td>
-                        <td><button type='eliminar' id="${Ruta.Id_ruta}" class='ruta btn btn-danger' name='eliminar' > Eliminar</button></td>";
+                        <td><button type="editar" a href="#modal_ruta" id="${Ruta.Id_ruta}"    class="ruta button" name="editar" data-toggle="modal">Editar</button></td>
+                        <td><button type='eliminar' id="${Ruta.Id_ruta}" class='delete_ruta btn button1' name='eliminar' > Eliminar</button></td>";
                         <td><button type='submit' class='button2' name='eliminar'><a href='Ruta_contenedor.php'  id ='Eliminar'> Contenedores que contiene</a></button>
                                               </td>
                 </tr>`
@@ -69,23 +69,24 @@ crossorigin = "anonymous" >
                 data: {Id_ruta: Id_ruta},
                 dataType: "json",
                 success: function (data) {
-                    $('#id').val(data.Id_ruta);
+                    $('#id_ruta').val(data.Id_ruta);
                     $('#Nombre_ruta').val(data.Nombre_ruta);
-                    $('#Tipo_contenedor').val(data.Tipos_contenedor);
-                    $('#Id_ruta').val(data.id);
+                    $('#Tipo_contenedor_id').val(data.Tipos_contenedor);
                     $('#insert').val("Update");
                 }
             });
+        })
 
-        $('#insert_form').on("submit", function(event){
+
+        $('#Ruta-form').on("submit", function(event){
             event.preventDefault();
             if($('#Nombre_ruta').val() == "")
             {
-                alert("Name is required");
+                alert("Nombre ruta is required");
             }
             else if($('#Tipo_contenedor').val() == '')
             {
-                alert("Address is required");
+                alert("Tipo contenedor is required");
             }
             else if($('#Id_ruta').val() == '')
             {
@@ -97,21 +98,21 @@ crossorigin = "anonymous" >
                 $.ajax({
                     url:"Guardar_ruta.php",
                     method:"POST",
-                    data:$('#insert_form').serialize(),
+                    data:$('#insert_ruta').serialize(),
                     beforeSend:function(){
                         $('#insert').val("Inserting");
                     },
-                    success:function(data){
-                        $('#insert_form')[0].reset();
-                        alert('Actualizado');
+                    success:function(response){
+                        $("#info3").html(JSON.parse(response));
+                        $('#insert_empresa')[0].reset();
                     }
                 });
+                Mostrar_ruta();
             }
         });
-        })
 
 
-        $(document).on('click', '.ruta', function () {
+        $(document).on('click', '.delete_ruta', function () {
             if (confirm('¿Estás seguro de que quieres eliminar esta ruta?')) {
                 let Id_ruta = $(this).attr("id");
 
@@ -121,7 +122,7 @@ crossorigin = "anonymous" >
                     $("#info").html(JSON.parse(response));
 
                 })
-                Mostrar_eliminar();
+                Mostrar_ruta();
             }
         })
     });

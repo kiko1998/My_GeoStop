@@ -7,8 +7,8 @@ include "config/conexion.php";
     if (empty($_POST['Marca'])) {
         echo "error";
     }
-    if (isset($_POST['Tipos_contenedor'])) {
-        $id_tipo_contenedor = $_POST['Tipos_contenedor'];
+    if (isset($_POST['Tipo_contenedor'])) {
+        $id_tipo_contenedor = $_POST['Tipo_contenedor'];
     }
     if (isset($_POST['Matricula_camion'])) {
         $Matricula_camion = $_POST['Matricula_camion'];

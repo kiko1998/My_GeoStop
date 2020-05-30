@@ -4,8 +4,8 @@ include "config/conexion.php";
 if (isset($_POST['Localidad'])) {
     $Localidad = $_POST['Localidad'];
 }
-if (isset($_POST['Tipo_procesamiento'])) {
-    $Tipo_procesamiento = $_POST['Tipo_procesamiento'];
+if (isset($_POST['Tipo_contenedor'])) {
+    $Tipo_contenedor = $_POST['Tipo_contenedor'];
 }
 if (isset($_POST['Nombre'])) {
     $Nombre = $_POST['Nombre'];
@@ -20,8 +20,8 @@ if (isset($_POST['Longitud'])) {
     $Longitud = $_POST['Longitud'];
 
 }
-$query = "INSERT INTO Empresa (id_localidad,id_tipo_procesamiento,Nombre,Telefono,Latitud,Longitud)
-                            VALUES ('$Localidad','$Tipo_procesamiento','$Nombre','$Telefono','$Latitud','$Longitud')";
+$query = "INSERT INTO Empresa (id_localidad,Id_tipo,Nombre,Telefono,Latitud,Longitud)
+                            VALUES ('$Localidad','$Tipo_contenedor','$Nombre','$Telefono','$Latitud','$Longitud')";
 $result = utf8_encode(mysqli_query($db, $query));
 if ($result == false) {
     $json = '<h4 style ="color:red">La empresa no se ha creado correctamente</h4>';
