@@ -9,20 +9,24 @@
     if (isset($_POST["Id_ruta"])) {
         $Id_ruta = $_POST["Id_ruta"];
     }
-    $Tipo_id_cont = $_POST["Id_tipo_contenedor"];
-    $Nombre_ruta = $_POST["Nombre_ruta"];
-    $nombre = $_FILES['Ruta']['name'];
-    $guardado = $_FILES['Ruta']['tmp_name'];
-    $rest = substr($nombre, -3);
-    /*
-    echo "nombre " . $nombre;
-    echo " guardado " . $guardado;
-    echo " rest " . $rest;
-    */
-    if (isset($Nombre_ruta) && isset($Tipo_id_cont)) {
-        $query = "UPDATE Ruta SET Nombre_ruta='$Nombre_ruta',Tipo_id_cont='$Tipo_id_cont' WHERE Id_ruta='$Id_ruta'";
+    if(isset($_POST['Tipo_contenedor_ruta'])) {
+        $Tipo_contenedor_ruta = $_POST["Tipo_contenedor_ruta"];
+    }
+    if(isset($_POST["Nombre_ruta"])) {
+        $Nombre_ruta = $_POST["Nombre_ruta"];
+    }
+    if(isset($_FILES['file'])) {
+        $nombre = $_FILES['Ruta']['name'];
+        $guardado = $_FILES['Ruta']['tmp_name'];
+        $rest = substr($nombre, -3);
+    }
+    if (isset($Nombre_ruta) && isset($Tipo_contenedor_ruta)) {
+        $query = "UPDATE Ruta SET Nombre_ruta='$Nombre_ruta',Tipo_id_cont='$Tipo_contenedor_ruta' WHERE Id_ruta='$Id_ruta'";
         $result = mysqli_query($db, $query);
-        
+        $json = '<h4 style ="color:#88ff00"; font-size:12px>Ruta actualizado</h4>';
+        $jsonstring = json_encode($json);
+        echo $jsonstring;
+        exit();
     }
     if ($rest !== 'gpx') {
         if (!empty($rest)){

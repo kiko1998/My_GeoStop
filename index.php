@@ -78,7 +78,7 @@
                     <a href="#" id="a_servicio" class="dropdown-toggle"><i class="menu-icon fa fa-calendar"></i>Servicio</a>
                 </li>
                 <li>
-                    <a href="../Recogida.php" class="dropdown-toggle"><i class="menu-icon fa fa-cogs"></i>Recogida</a>
+                    <a href="#" id="a_recogida" class="dropdown-toggle"><i class="menu-icon fa fa-cogs"></i>Recogida</a>
                 </li>
                 <li>
                     <a href="../Contenedores.php" class="dropdown-toggle"><i class="menu-icon fa fa-trash"></i>Contenedores</a>
@@ -147,6 +147,9 @@
                                                         y el reciclaje.
                                                     </p>
                                                 </div>
+
+
+                                                <!--Mostrar empresa-->
                                                 <div class="mygeostop" id="empresa">
                                                     <button type="añadir" class='button2' name="añadir" id="Añadir_e"><a href="#" id="Añadir">Añadir</a></button>
                                                     <table id="bootstrap-data-table"
@@ -168,8 +171,7 @@
                                                     </table>
                                                 </div>
 
-
-
+                                                <!--Mostrar camion-->
                                                 <div class="mygeostop" id="camion">
                                                       <div class="card-header">
                                                           <button type="añadir" class='button2' name="añadir" id="Añadir_c"><a href="#"
@@ -181,7 +183,7 @@
 
 
 
-                                                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                                    <table id="tabla_camion bootstrap-data-table" class="table table-striped table-bordered">
                                                         <thead>
                                                         <tr>
                                                             <th>Tipo de contenedor que recoge</th>
@@ -196,12 +198,14 @@
                                                         </thead>
                                                         <tbody id="Camiones">
                                                         </tbody>
+                                                        <tbody id="añadir"></tbody>
+                                                        <div id="result"></div>
 
 
                                                     </table>
                                                 </div>
 
-
+                                               <!--Mostrar ruta -->
                                                 <div class="mygeostop"  id="ruta">
 
                                                     <button type="añadir" class='button2' name="añadir" id="Añadir_r"><a href="#"
@@ -227,7 +231,7 @@
                                                 </div>
 
 
-
+                                                <!--Mostrar servicio -->
                                                     <div class="mygeostop" id="servicio">
 
                                                         <button type="añadir" class='button2' name="añadir" id="Añadir"><a href="Crear_servicio.php"
@@ -253,6 +257,31 @@
                                                         </table>
                                                 </div>
 
+
+                                                <!--Mostrar recogida -->
+                                                <div class="mygeostop" id="recogida">
+
+                                                    <button type="añadir" class='button2' name="añadir" id="Añadir_re"><a href="#"
+                                                                                                                       id="Añadir"> Añadir</a></button>
+
+
+                                                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Servicio</th>
+                                                            <th>Nombre contenedor</th>
+                                                            <th>Fecha de recogida</th>
+                                                            <th>Horario de recogida</th>
+                                                            <th>Editar</th>
+                                                            <th>Eliminar</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="Recogidas">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
                                                 <!-- Crear camion -->
 
                                                 <div class="mygeostop" id="crear_camion">
@@ -264,7 +293,7 @@
                                                             <input id="Marca" type="text" name="Marca" required />
                                                         </label>
 
-                                                        <label class="label">Matricula camion
+                                                        <label class="label">Matricula camion:
                                                             <input id="Matricula_camion" type="text" name="Matricula_camion" required/>
                                                         </label>
 
@@ -274,15 +303,9 @@
                                                             <input id="Modelo" type="text" name="Modelo" required/>
                                                         </label>
 
-                                                        <label id="Tipo_contenedor_id"  class="label">Tipo contenedor:</label>
-                                                        <label for="Tipo_contenedor"></label>
+                                                        <label class="label">Tipo contenedor:</label>
                                                         <select id="Tipo_contenedor" name="Tipo_contenedor">
-                                                            <option value="1">Vídrio</option>
-                                                            <option value="2">Cartón y papel</option>
-                                                            <option value="3">Orgánico</option>
-                                                            <option value="4">Plástico</option>
-                                                            <option value="5">Pilas</option>
-                                                            <option value="6">Ropa</option>
+
                                                         </select>
 
                                                         <br>
@@ -355,26 +378,14 @@
                                                 <div class="mygeostop" id="crear_ruta">
 
                                                     <form id="Ruta-form" method="post">
-
-
                                                         <label class="label">Nombre de la ruta:
-                                                            <input id="Empresa_telefono" type="text" name="Empresa_telefono" required />
+                                                            <input id="Ruta_nombre" type="text" name="Ruta_nombre" required />
                                                         </label>
 
-                                                        <label class="label">Nombre:
-                                                            <input id="Empresa_nombre" type="text" name="Empresa_nombre" required/>
-                                                        </label>
-                                                        <br>
-                                                        <label for="Empresa_localidad" class="label">Localidad</label>
-                                                        <select id="Empresa_localidad" name="Empresa_localidad">
-                                                            <option value="5">Jaén</option>
-                                                            <option value="6">Granada</option>
-                                                            <option value="7">Córdoba</option>
-                                                            <option value="9">Cádiz</option>
-                                                        </select>
 
-                                                        <label for="Empresa_tipo_contenedor"  class="label">Recicla:</label>
-                                                        <select id="Empresa_tipo_contenedor" name="Empresa_tipo_contenedor">
+
+                                                        <label for="Ruta_tipo_contenedor"  class="label">Recoge:</label>
+                                                        <select id="Ruta_tipo_contenedor" name="Ruta_tipo_contenedor">
                                                             <option value="1">Vídrio</option>
                                                             <option value="2">Cartón y papel</option>
                                                             <option value="3">Orgánico</option>
@@ -382,14 +393,6 @@
                                                             <option value="5">Pilas</option>
                                                             <option value="6">Ropa</option>
                                                         </select>
-
-                                                        <br>
-                                                        <label class="label">Latitud:
-                                                            <input id="Empresa_latitud" type="text" name="Empresa_latitud" required/>
-                                                        </label>
-                                                        <label class="label">Longitud:
-                                                            <input id="Empresa_longitud" type="text"  name="Empresa_longitud" required/>
-                                                        </label>
 
                                                         <br>
                                                         <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" name="Guardar"
@@ -400,10 +403,84 @@
                                                 </div>
 
 
+                                                <!--Ruta contenedor-->
+
+                                                <div class="mygeostop" id="RutaContenedor">
+
+                                                    <form id="Ruta_contenedor-form" method="post">
+                                                        <label class="label">Nombre de la ruta:
+                                                            <input id="Ruta_nombre" type="text" name="Ruta_nombre" required />
+                                                        </label>
 
 
 
+                                                        <label for="Ruta_tipo_contenedor"  class="label">Recoge:</label>
+                                                        <select id="Ruta_tipo_contenedor" name="Ruta_tipo_contenedor">
+                                                            <option value="1">Vídrio</option>
+                                                            <option value="2">Cartón y papel</option>
+                                                            <option value="3">Orgánico</option>
+                                                            <option value="4">Plástico</option>
+                                                            <option value="5">Pilas</option>
+                                                            <option value="6">Ropa</option>
+                                                        </select>
 
+                                                        <br>
+                                                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" name="Guardar"
+                                                                id="Guardar">Guardar
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+
+                                               <!--Crear Recogida -->
+                                                <div class="mygeostop" id="crear_recogida">
+                                                <div class="content">
+                                                    <div class="animated fadeIn">
+
+
+                                                        <div class="card">
+                                                    <div class="card-header">
+                                                        <i class="mr-2 fa fa-align-justify"></i>
+                                                        <strong class="card-title">Añadir recogida</strong>
+
+
+                                                    </div>
+                                                    <div class="card-body">
+                                                    <div class="fontawesome-icon-list">
+                                                    <form id="Recogida-form" method="post">
+
+                                                        <label id="Contenedor_id" class="label">Contenedor:</label>
+                                                        <select id="Id_contenedor" name="Id_contenedor">
+                                                            <option selected>Selecciona</option>
+                                                        </select>
+                                                        <label id="Servicio_label"  class="label">Servicio:</label>
+                                                         <select id="Select_servicio" name="Select_servicio">
+                                                            <option value="" selected>Selecciona</option>
+                                                         </select>
+                                                        <br>
+                                                        <label class="label">
+                                                            Fecha recogida:
+                                                            <input type="date" id="Recogida_fecha" required name="Recogida_fecha"/>
+                                                        </label>
+
+                                                        <label class="label">
+                                                            Horario recogida:
+                                                            <input type="time" id="Recogida_horario" name="Horario_recogida">
+                                                        </label>
+
+                                                        <br>
+                                                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30" name="Guardar"
+                                                                id="Guardar">Guardar
+                                                        </button>
+                                                    </form>
+
+                                                </div>
+                                                </div>
+                                                </div>
+
+                                                </div>
+                                                </div>
+                                                </div>
 
 
                                             </div>
@@ -446,6 +523,12 @@
 <script src="Empresa.js"></script>
 <script src="Ruta.js"></script>
 <script src="Servicio.js"></script>
+<script src="Recogida.js"></script>
+<script src="Mostrar_contenedores.js"></script>
+<script src="Mostrar_servicio.js"></script>
+<script src="Mostrar_tipo_contenedor.js"></script>
+
+
 <!--Modal Camión -->
 <div id="modal1" class="modal fade">
     <div class="modal-dialog">
@@ -466,17 +549,19 @@
                     <input type="text" name="Modelo_camion" id="Modelo_camion" class="form-control" />
                     <br/>
                     <label>Tipo de Contenedor</label>
+
                     <select name="Tipo_contenedor_id" id="Tipo_contenedor_id" class="form-control">
-                        <option value="0" >Seleccione</option>
-                        <option value="1">Vídrio</option>
-                        <option value="2">Cartón y papel</option>
-                        <option value="3">Orgánico</option>
-                        <option value="4">Plástico</option>
-                        <option value="5">Pilas</option>
-                        <option value="6">Ropa</option>
+                        <option>Seleccione</option>
+                        <option>Vídrio</option>
+                        <option>Cartón y papel</option>
+                        <option>Orgánico</option>
+                        <option>Plástico</option>
+                        <option>Pilas</option>
+                        <option>Ropa</option>
 
                     </select>
                     <br/>
+
                     <label>Matrícula del camión</label>
                     <input type="text" name="Matricula" id="Matricula" class="form-control"/>
                     <br/>
@@ -495,7 +580,7 @@
         </div>
     </div>
 </div>
-<!--MODAL EMPRESA-->
+<!--Modal Empresa-->
 <div id="modal_empresa" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -563,12 +648,53 @@
                 <div id="info3"></div>
                 <form method="post" id="insert_ruta">
 
+                    <input type="hidden" name="Id_ruta" id="Id_ruta"/>
+                    <label>Nombre de la ruta</label>
+                    <input type="text" name="Nombre_ruta" id="Nombre_ruta" class="form-control" />
+                    <br/>
+                    <label>Tipo de Contenedor</label>
+                    <select name="Tipo_contenedor_ruta" id="Tipo_contenedor_ruta" class="form-control">
+                        <option value="0" >Seleccione</option>
+                        <option value="1">Vídrio</option>
+                        <option value="2">Cartón y papel</option>
+                        <option value="3">Orgánico</option>
+                        <option value="4">Plástico</option>
+                        <option value="5">Pilas</option>
+                        <option value="6">Ropa</option>
+                    </select>
+                    <br/>
+                    <label >Elegir Documento</label>
+                    <input type='file' name='archivo' id="file" />
+                    <br/>
+
+                    <input type="submit" name="insert" id="insert" value="Insertar" class="btn btn-success" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal ruta contenedor-->
+<!--
+<div id="modal_ruta_contenedor" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edite su camión</h4>
+            </div>
+            <div class="modal-body">
+                <div id="info3"></div>
+                <form method="post" id="insert_ruta">
+
                     <input type="hidden" name="id_ruta" id="id_ruta"/>
                     <label>Nombre de la ruta</label>
                     <input type="text" name="Nombre_ruta" id="Nombre_ruta" class="form-control" />
                     <br/>
                     <label>Tipo de Contenedor</label>
-                    <select name="Tipo_contenedor_id" id="Tipo_contenedor_id" class="form-control">
+                    <select name="Tipo_contenedor_ruta" id="Tipo_contenedor_ruta" class="form-control">
                         <option value="0" >Seleccione</option>
                         <option value="1">Vídrio</option>
                         <option value="2">Cartón y papel</option>
@@ -587,4 +713,120 @@
         </div>
     </div>
 </div>
+-->
 
+
+<!-- Modal empresa-->
+<div id="modal_empresa" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edite su empresa</h4>
+            </div>
+            <div class="modal-body">
+                <div id="info2"></div>
+                <form method="post" id="insert_empresa">
+
+                    <input type="hidden" name="id_empresa" id="id_empresa"/>
+                    <label>Telefono de la empresa</label>
+                    <input type="text" name="Telefono_empresa" id="Telefono_empresa" class="form-control" />
+                    <br/>
+                    <label>Nombre de la empresa</label>
+                    <input type="text" name="Nombre_empresa" id="Nombre_empresa" class="form-control" />
+                    <br/>
+                    <label>Tipo de Contenedor</label>
+
+                    <select name="Tipo_contenedor_empresa" id="Tipo_contenedor_empresa" class="form-control">
+                        <option value="0" selected>Seleccione</option>
+                        <option value="1">Vídrio</option>
+                        <option value="2">Cartón y papel</option>
+                        <option value="3">Orgánico</option>
+                        <option value="4">Plástico</option>
+                        <option value="5">Pilas</option>
+                        <option value="6">Ropa</option>
+
+                    </select>
+                    <br/>
+                    <label>Localidad</label>
+                    <select name="Localidad_empresa" id="Localidad_empresa" class="form-control">
+                        <option value="0" >Seleccione</option>
+                        <option value="5">Jaén</option>
+                        <option value="6">Granada</option>
+                        <option value="9">Cádiz</option>
+
+                    </select>
+                    <br/>
+                    <label>Latitud</label>
+                    <input type="text" name="Latitud_empresa" id="Latitud_empresa" class="form-control" />
+                    <br/>
+                    <label>Longitud</label>
+                    <input type="text" name="Longitud_empresa" id="Longitud_empresa" class="form-control" />
+                    <br/>
+                    <input type="submit" name="insert" id="insert" value="Insertar" class="btn btn-success" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal recogida -->
+
+<div id="modal_recogida" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edite la recogida</h4>
+            </div>
+            <div class="modal-body">
+                <div id="info5"></div>
+                <form method="post" id="insert_recogida">
+
+                    <input type="hidden" name="Id_recogida" id="Id_recogida"/>
+                    <label>Servicio de la ruta</label>
+                    <input type="text" name="id_servicio_recogida" id="id_servicio_recogida" class="form-control" />
+                    <br/>
+                    <label>Contenedor de la ruta</label>
+                    <input type="text" name="Tipo_contenedor_ruta" id="Tipo_contenedor_ruta" class="form-control" />
+                    <br/>
+                    <label>Tipo de Contenedor</label>
+
+                    <select name="Tipo_contenedor_empresa" id="Tipo_contenedor_empresa" class="form-control">
+                        <option value="0" selected>Seleccione</option>
+                        <option value="1">Vídrio</option>
+                        <option value="2">Cartón y papel</option>
+                        <option value="3">Orgánico</option>
+                        <option value="4">Plástico</option>
+                        <option value="5">Pilas</option>
+                        <option value="6">Ropa</option>
+
+                    </select>
+                    <br/>
+                    <label>Localidad</label>
+                    <select name="Localidad_empresa" id="Localidad_empresa" class="form-control">
+                        <option value="0" >Seleccione</option>
+                        <option value="5">Jaén</option>
+                        <option value="6">Granada</option>
+                        <option value="9">Cádiz</option>
+
+                    </select>
+                    <br/>
+                    <label>Latitud</label>
+                    <input type="text" name="Latitud_empresa" id="Latitud_empresa" class="form-control" />
+                    <br/>
+                    <label>Longitud</label>
+                    <input type="text" name="Longitud_empresa" id="Longitud_empresa" class="form-control" />
+                    <br/>
+                    <input type="submit" name="insert" id="insert" value="Insertar" class="btn btn-success" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

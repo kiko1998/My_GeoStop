@@ -4,20 +4,22 @@ include "config/conexion.php";
     if (isset($_POST['Marca'])) {
         $Marca = $_POST['Marca'];
     }
-    if (empty($_POST['Marca'])) {
-        echo "error";
-    }
+
     if (isset($_POST['Tipo_contenedor'])) {
         $id_tipo_contenedor = $_POST['Tipo_contenedor'];
+
     }
     if (isset($_POST['Matricula_camion'])) {
         $Matricula_camion = $_POST['Matricula_camion'];
+
     }
     if (isset($_POST['Modelo'])){
         $Modelo = $_POST['Modelo'];
+
     }
     if (isset($_POST['Latitud'])) {
         $Latitud = $_POST['Latitud'];
+
     }
     if (isset($_POST['Longitud'])) {
         $Longitud = $_POST['Longitud'];

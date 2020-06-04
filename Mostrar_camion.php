@@ -15,7 +15,7 @@ if (isset($_POST['id_camion'])){
 //Mostrar página
 else {
 
-    $sql = "SELECT t.Tipo_contenedor,c.Matricula_camion,Marca,Modelo,c.Id_camion,c.Latitud,c.Longitud from Camion c,Tipo_contenedor t where id_tipo_contenedor = idTipo ;";
+    $sql = "SELECT t.Tipo_contenedor,c.Matricula_camion,Marca,Modelo,c.Id_camion,c.Latitud,c.Longitud from Camion c,Tipo_contenedor t where id_tipo_contenedor = idTipo;";
     $result = mysqli_query($db, $sql);
 
 

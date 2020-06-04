@@ -14,20 +14,19 @@ crossorigin = "anonymous" >
         //Añadir ruta
         $('#Ruta-form').submit(function (e) {
             const postRuta = {
-                Nombre_ruta: $('#Nombre_ruta').val(),
-                Tipos_contenedor: $('#Tipo_contenedor').val(),
-                Color: $('#Color').val()
+                Nombre_ruta: $('#Ruta_nombre').val(),
+                Tipo_id_cont: $('#Ruta_tipo_contenedor').val(),
             };
             $.post('Crear_nueva_ruta.php', postRuta, function (response) {
                 $("#info").html(JSON.parse(response));
                 $('#card-body').trigger('reset');
-
+                Mostrar_ruta();
             });
             console.log(postRuta);
             e.preventDefault();
+            $('#Ruta-form').trigger('reset');
+
         });
-
-
 
         function Mostrar_ruta() {
             $.ajax({
@@ -40,13 +39,12 @@ crossorigin = "anonymous" >
                     Rutas.forEach(Ruta => {
 
                         template += ` 
-                <tr>
-                        <td data-id="${Ruta.Id_ruta}"  data-column="Nombre_ruta"           class="update">${Ruta.Nombre_ruta}</td>
-                        <td data-id="${Ruta.Id_ruta}"  data-column="Tipo_contenendor"      class="update">${Ruta.Tipo_contenedor}</td>
+                <tr id="${Ruta.Id_ruta}">
+                        <td data-id="${Ruta.Id_ruta}"  data-column="Ruta_nombre"               class="update">${Ruta.Nombre_ruta}</td>
+                        <td data-id="${Ruta.Id_ruta}"  data-column="Tipo_contenendor"          class="update">${Ruta.Tipo_contenedor}</td>
                         <td><button type="editar" a href="#modal_ruta" id="${Ruta.Id_ruta}"    class="ruta button" name="editar" data-toggle="modal">Editar</button></td>
                         <td><button type='eliminar' id="${Ruta.Id_ruta}" class='delete_ruta btn button1' name='eliminar' > Eliminar</button></td>";
-                        <td><button type='submit' class='button2' name='eliminar'><a href='Ruta_contenedor.php'  id ='Eliminar'> Contenedores que contiene</a></button>
-                                              </td>
+                        <td><a href='#'  id ='b_rutaContenedor'> Contenedores que contiene</a></td>
                 </tr>`
                     });
                     $('#Rutas').html(template);
@@ -69,22 +67,23 @@ crossorigin = "anonymous" >
                 data: {Id_ruta: Id_ruta},
                 dataType: "json",
                 success: function (data) {
-                    $('#id_ruta').val(data.Id_ruta);
+                    $('#Id_ruta').val(data.Id_ruta);
                     $('#Nombre_ruta').val(data.Nombre_ruta);
-                    $('#Tipo_contenedor_id').val(data.Tipos_contenedor);
+                    $('#Tipo_contenedor_ruta').val(data.Tipo_contenedor);
+                    $('#file').val(data.file);
                     $('#insert').val("Update");
                 }
             });
         })
 
 
-        $('#Ruta-form').on("submit", function(event){
+        $('#insert_ruta').on("submit", function(event){
             event.preventDefault();
             if($('#Nombre_ruta').val() == "")
             {
                 alert("Nombre ruta is required");
             }
-            else if($('#Tipo_contenedor').val() == '')
+            else if($('#Tipo_contenedor_ruta').val() == '')
             {
                 alert("Tipo contenedor is required");
             }
@@ -95,6 +94,9 @@ crossorigin = "anonymous" >
 
             else
             {
+                var datos = $('#insert_ruta').serialize();
+                console.log(datos);
+
                 $.ajax({
                     url:"Guardar_ruta.php",
                     method:"POST",
@@ -104,7 +106,7 @@ crossorigin = "anonymous" >
                     },
                     success:function(response){
                         $("#info3").html(JSON.parse(response));
-                        $('#insert_empresa')[0].reset();
+                        $('#insert_ruta')[0].reset();
                     }
                 });
                 Mostrar_ruta();

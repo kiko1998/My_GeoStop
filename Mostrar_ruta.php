@@ -6,7 +6,7 @@ include('config/conexion.php');
 if (isset($_POST['Id_ruta'])){
     $Id_ruta = $_POST['Id_ruta'];
 
-    $sql1 = "SELECT r.*, t.Tipo_contenedor from Ruta r,Tipo_contenedor t where idTipo = Tipo_id_cont and $Id_ruta ";
+    $sql1 = "SELECT r.*, t.Tipo_contenedor from Ruta r,Tipo_contenedor t where idTipo = Tipo_id_cont and Id_ruta = $Id_ruta ";
     $result1 = mysqli_query($db, $sql1);
     $row1 = mysqli_fetch_array($result1);
     echo json_encode($row1);

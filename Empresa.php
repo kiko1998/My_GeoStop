@@ -120,7 +120,7 @@ include "config/conexion.php";
 
 
     <div id="site-footer">
-
+Horario_
     </div>
 
 </div><!-- /#right-panel -->
